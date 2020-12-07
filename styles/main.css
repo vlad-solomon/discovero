@@ -1,0 +1,639 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+@font-face {
+  font-family: Poppins Regular;
+  src: url("../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: Poppins Bold;
+  src: url("../fonts/Poppins-Bold.ttf");
+}
+.fly-in-disappear {
+  animation: fly-in-disappear 1s forwards ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes fly-in-disappear {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+.fly-in-appear {
+  animation: fly-in-appear 1s forwards ease-in-out;
+}
+
+@keyframes fly-in-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.page-content.dark-mode .hero-section h1 {
+  color: #fff;
+}
+.page-content.dark-mode .hero-section .cta-button {
+  color: #292929;
+  background-color: #fff;
+}
+.page-content.dark-mode .modal .info-section {
+  background-color: #292929;
+  border: 1px solid #212121;
+  box-sizing: border-box;
+}
+.page-content.dark-mode .modal .info-section span:first-of-type {
+  color: #e1e1e1;
+}
+.page-content.dark-mode .modal .info-section p {
+  color: #e1e1e1;
+}
+.page-content.dark-mode .modal .landmarks-section .landmark-card {
+  border: 1px solid #212121;
+  box-sizing: border-box;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info {
+  border: 1px solid #212121;
+  box-sizing: border-box;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .info {
+  background-color: #292929;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .info span:first-of-type {
+  color: #e1e1e1;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .info p {
+  color: #e1e1e1;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .drag {
+  background-color: #323232;
+}
+
+#map.dark .marker {
+  border-color: #fff;
+}
+#map.dark .marker:hover {
+  background-color: #fff;
+}
+#map.dark .marker:hover .city-name {
+  opacity: 1;
+  transform: translateY(-30px) scale(1);
+  color: #fff;
+}
+#map.dark .marker-shrink {
+  border: 6px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+@media (max-width: 830px) {
+  .page-content.dark-mode .modal .info-section {
+    border: none;
+  }
+  .page-content.dark-mode .modal .landmarks-section {
+    background-color: #292929;
+  }
+  .page-content.dark-mode .landmark-info-wrapper .landmark-info {
+    border: none;
+  }
+
+  #dark-mode {
+    top: 41px !important;
+    right: 25px !important;
+  }
+}
+:root {
+  font-size: 16px;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.active {
+  z-index: 1 !important;
+}
+
+#dark-mode {
+  position: absolute;
+  z-index: 2;
+  top: 27px;
+  right: 50px;
+  cursor: pointer;
+  transition: 1s;
+}
+#dark-mode:hover {
+  opacity: 0.8;
+}
+
+.marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  box-sizing: border-box;
+  border: 6px solid #000;
+  border-radius: 100px;
+  cursor: pointer;
+  opacity: 0;
+  transition: background-color 200ms, opacity 1s 800ms, border 500ms ease-in-out;
+}
+.marker:hover {
+  background-color: #000;
+}
+.marker:hover .city-name {
+  opacity: 1;
+  transform: translateY(-30px) scale(1);
+}
+.marker .city-name {
+  font-family: Poppins Bold;
+  font-size: 1.25rem;
+  text-transform: capitalize;
+  opacity: 0;
+  transition: 500ms;
+  transition-delay: 200ms;
+  transform: scale(0.5);
+  white-space: nowrap;
+}
+
+.marker-shrink {
+  border: 6px solid rgba(0, 0, 0, 0.15) !important;
+  transition-delay: 0s !important;
+}
+
+.mapboxgl-popup-tip {
+  display: none;
+}
+
+.mapboxgl-popup-content {
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 1.5rem;
+  font-family: Poppins Bold;
+  text-transform: capitalize;
+  padding: 0;
+}
+.mapboxgl-popup-content .mapboxgl-popup-close-button {
+  display: none;
+}
+
+#map {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.page-content {
+  height: 100%;
+  max-width: 1425px;
+  font-family: Poppins Regular;
+  margin: 0 auto;
+  position: relative;
+}
+.page-content .hero-section {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: Poppins Bold;
+  position: absolute;
+}
+.page-content .hero-section img#logo {
+  position: absolute;
+  top: 30px;
+  transition: 1s;
+}
+.page-content .hero-section h1 {
+  font-size: 4rem;
+  letter-spacing: -0.045em;
+  line-height: 70px;
+  text-align: center;
+  width: 90%;
+  margin-top: 150px;
+}
+.page-content .hero-section .cta-button {
+  font-size: 1.5rem;
+  padding: 15px 35px;
+  color: #fff;
+  background-color: #000;
+  margin-top: 105px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 800ms ease-in-out;
+}
+.page-content .hero-section .cta-button:hover {
+  transform: scale(1.1);
+}
+.page-content .modal {
+  top: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: scale(0.8);
+  opacity: 0;
+  z-index: -1;
+}
+.page-content .modal .info-section {
+  position: relative;
+  height: 800px;
+  width: 1065px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 50px 100px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+  overflow: auto;
+}
+.page-content .modal .info-section::-webkit-scrollbar {
+  display: none;
+}
+.page-content .modal .info-section img.back {
+  top: 60px;
+  left: 42px;
+  position: absolute;
+  cursor: pointer;
+  transition: 200ms;
+}
+.page-content .modal .info-section img.back:hover {
+  transform: scale(1.5);
+}
+.page-content .modal .info-section span:first-of-type {
+  font-family: Poppins Bold;
+  font-size: 2.25rem;
+  letter-spacing: -0.045em;
+}
+.page-content .modal .info-section p {
+  font-size: 1.125rem;
+  line-height: 162%;
+  margin-top: 30px;
+  opacity: 0.8;
+}
+.page-content .modal .landmarks-section {
+  height: 100%;
+  width: 345px;
+  overflow: auto;
+}
+.page-content .modal .landmarks-section::-webkit-scrollbar {
+  display: none;
+}
+.page-content .modal .landmarks-section .landmark-card {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #000;
+  background-image: url("../img/placeholder.png");
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+  transition: 500ms;
+  transition-delay: 200ms;
+  transition-property: opacity;
+}
+.page-content .modal .landmarks-section .landmark-card:hover img {
+  transform: scale(1.05);
+}
+.page-content .modal .landmarks-section .landmark-card span {
+  position: absolute;
+  z-index: 1;
+  top: 35px;
+  left: 40px;
+  display: block;
+  width: 225px;
+  font-family: Poppins Bold;
+  font-size: 2.25rem;
+  letter-spacing: -0.045em;
+  line-height: 35px;
+  color: #fff;
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+}
+.page-content .modal .landmarks-section .landmark-card img.card-background {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: 500ms;
+}
+.page-content .landmark-info-wrapper {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+}
+.page-content .landmark-info-wrapper .landmark-info {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 800px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transform: scale(0.8);
+  opacity: 0;
+}
+.page-content .landmark-info-wrapper .landmark-info .info,
+.page-content .landmark-info-wrapper .landmark-info .drag {
+  height: 100%;
+  width: 50%;
+  background-color: #fff;
+}
+.page-content .landmark-info-wrapper .landmark-info .info {
+  box-sizing: border-box;
+  padding: 50px 100px;
+  overflow: auto;
+}
+.page-content .landmark-info-wrapper .landmark-info .info::-webkit-scrollbar {
+  display: none;
+}
+.page-content .landmark-info-wrapper .landmark-info .info span:first-of-type {
+  font-family: Poppins Bold;
+  font-size: 2.25rem;
+  letter-spacing: -0.045em;
+}
+.page-content .landmark-info-wrapper .landmark-info .info p {
+  margin-top: 30px;
+  font-family: Poppins Regular;
+  font-size: 1.125rem;
+  line-height: 162.41%;
+  opacity: 0.8;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  cursor: grab;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  height: 50px;
+  width: 50px;
+  top: calc(50% - 25px);
+  background-image: url("../img/loader.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag .threesixty {
+  z-index: 1;
+}
+.page-content .landmark-info-wrapper .landmark-info img.close-landmark {
+  top: 60px;
+  left: 42px;
+  position: absolute;
+  cursor: pointer;
+  transition: 200ms;
+}
+.page-content .landmark-info-wrapper .landmark-info img.close-landmark:hover {
+  transform: scale(1.5);
+}
+
+@media (max-width: 1140px) {
+  :root {
+    font-size: 14px !important;
+  }
+
+  .page-content {
+    width: 800px;
+  }
+  .page-content .modal .landmarks-section .landmark-card {
+    height: 250px !important;
+  }
+  .page-content .modal .landmarks-section .landmark-card span {
+    text-align: center;
+    top: 15px !important;
+    left: 0 !important;
+    width: 100% !important;
+    font-size: 1.3rem !important;
+    line-height: 20px !important;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .info {
+    padding: 50px 40px !important;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .info span {
+    display: block;
+    text-align: center;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .info p {
+    text-align: justify;
+  }
+}
+@media (max-width: 830px) {
+  .page-content {
+    width: 100%;
+  }
+  .page-content .hero-section img#logo {
+    top: 35px;
+  }
+  .page-content .modal {
+    display: block;
+    overflow: auto;
+    border-radius: 0;
+  }
+  .page-content .modal .info-section {
+    width: 100%;
+    flex-shrink: 0;
+    margin: 0 !important;
+    box-shadow: none;
+    height: auto !important;
+    padding: 20px !important;
+  }
+  .page-content .modal .info-section span:first-of-type {
+    display: block;
+    text-align: center;
+  }
+  .page-content .modal .info-section p {
+    margin-top: 15px;
+  }
+  .page-content .modal .info-section img.back {
+    top: 30px;
+    left: 20px !important;
+  }
+  .page-content .modal .landmarks-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #fff;
+    height: auto;
+    width: 100%;
+  }
+  .page-content .modal .landmarks-section .landmark-card {
+    height: 300px !important;
+    width: 230px;
+    margin: 0 !important;
+    margin: 10px !important;
+  }
+  .page-content .landmark-info-wrapper {
+    display: block;
+  }
+  .page-content .landmark-info-wrapper .landmark-info {
+    display: block;
+    border-radius: 0;
+    overflow: auto;
+    height: 100% !important;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .info {
+    width: 100% !important;
+    height: auto;
+    padding: 20px !important;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .drag {
+    height: 500px;
+    width: 100% !important;
+    overflow: hidden;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .drag::before {
+    bottom: 0px;
+    width: 100%;
+    border-radius: 0;
+  }
+  .page-content .landmark-info-wrapper .landmark-info img.close-landmark {
+    top: 30px !important;
+    left: 20px !important;
+  }
+}
+@media (max-width: 1500px) {
+  :root {
+    font-size: 15px;
+  }
+
+  .page-content {
+    max-width: 1100px;
+  }
+  .page-content .modal .info-section {
+    margin-right: 20px;
+    padding: 50px 80px;
+  }
+  .page-content .modal .info-section img.back {
+    left: 34px;
+  }
+  .page-content .modal .landmarks-section .landmark-card {
+    height: 330px;
+  }
+  .page-content .modal .landmarks-section .landmark-card span {
+    width: 160px;
+    line-height: 26px;
+    font-size: 1.7rem;
+    top: 30px;
+    left: 30px;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .info {
+    padding: 50px 80px;
+    width: 55%;
+  }
+  .page-content .landmark-info-wrapper .landmark-info img.close-landmark {
+    left: 34px;
+  }
+}
+@media (max-height: 800px) {
+  .page-content .modal .info-section {
+    height: 600px;
+  }
+  .page-content .landmark-info-wrapper .landmark-info {
+    height: 600px;
+  }
+}
+@media (max-width: 500px) {
+  .page-content .hero-section h1 {
+    font-size: 3rem;
+    line-height: 60px;
+  }
+  .page-content .modal .landmarks-section .landmark-card {
+    width: 100%;
+    margin: 10px 20px !important;
+  }
+  .page-content .modal .landmarks-section .landmark-card span {
+    font-size: 1.8rem !important;
+    line-height: 27px !important;
+    margin-top: 10px;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+  .page-content .landmark-info-wrapper .landmark-info .info span:first-of-type {
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+}
