@@ -971,7 +971,7 @@ body {
 		grid-template-columns: 1fr;
 	}
 }
-@media (max-height: 850px) {
+@media (max-height: 850px) and (min-width: 800px) {
 	.page-content .modal .info-section {
 		height: 90%;
 	}
