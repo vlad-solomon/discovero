@@ -973,6 +973,9 @@ body {
 }
 @media (max-height: 850px) {
 	.page-content .modal .info-section {
-		height: 600px;
+		height: 90%;
+	}
+	.landmark-info {
+		height: 90% !important;
 	}
 }

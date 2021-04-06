@@ -4,7 +4,9 @@ After a year of being out in the wild, Discovero - Redefined returns with almost
 
 **In short - everything has been improved and the project has finally achieved its end,** but new cities and landmarks are coming soon!
 
-![Discovero Hero](https://res.cloudinary.com/dbkhowucg/image/upload/v1617704327/discovero/discovero_hero.gif)
+<p align="center">
+    <img src="https://res.cloudinary.com/dbkhowucg/image/upload/v1617704327/discovero/discovero_hero.gif" style="width:100%;border-radius:5px;box-shadow: 0px 15px 25px rgb(0,0,0,0.08);" alt="Discovero Hero">
+</p>
 
 ### What are you waiting for? [Start exploring!](https://vlad-solomon.github.io/discovero/)
 
