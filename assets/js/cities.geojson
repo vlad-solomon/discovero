@@ -1,0 +1,55 @@
+{
+	"type": "FeatureCollection",
+	"features": [
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [26.102537, 44.426765]
+			},
+			"properties": {
+				"title": "bucharest"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [28.6455, 44.1848]
+			},
+			"properties": {
+				"title": "constanța"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [27.5872, 47.159809]
+			},
+			"properties": {
+				"title": "iași"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [24.793961, 46.218632]
+			},
+			"properties": {
+				"title": "sighișoara"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [21.2289, 45.7559]
+			},
+			"properties": {
+				"title": "timișoara"
+			}
+		}
+	]
+}

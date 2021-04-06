@@ -1,0 +1,978 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q {
+	quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: "";
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+*::selection {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-tap-highlight-color: transparent;
+}
+@font-face {
+	font-family: "Poppins Regular";
+	src: url("../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+	font-family: "Poppins Bold";
+	src: url("../fonts/Poppins-Bold.ttf");
+}
+.fly-in-disappear {
+	animation: fly-in-disappear 1s forwards ease-in-out;
+	pointer-events: none;
+}
+
+@keyframes fly-in-disappear {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	85% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.5);
+	}
+}
+.fly-in-appear {
+	animation: fly-in-appear 1s forwards ease-in-out;
+}
+
+@keyframes fly-in-appear {
+	0% {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	85% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+.mapboxgl-canvas {
+	outline: none;
+}
+.buttons-wrapper {
+	z-index: 2;
+	position: absolute;
+	right: 20px;
+	top: 30px;
+	display: flex;
+	transition: 1s;
+	transform: translateY(-150px);
+}
+.buttons-wrapper .button {
+	height: 30px;
+	width: 30px;
+	background-color: #fff;
+	box-sizing: border-box;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 4px 10px rgb(0 0 0 / 8%);
+	cursor: pointer;
+	transition: transform 200ms;
+}
+.buttons-wrapper .button:hover {
+	transform: scale(1.25);
+}
+.buttons-wrapper .button:last-of-type {
+	margin-left: 10px;
+}
+.buttons-wrapper .button img {
+	height: 16px;
+}
+.buttons-wrapper .button img::selection {
+	background: transparent;
+}
+.page-content.dark-mode .hero-section h1 {
+	color: #fff;
+}
+.page-content.dark-mode .credits {
+	background-color: #292929;
+	border: 1px solid #212121;
+	color: #e1e1e1;
+}
+.buttons-wrapper.dark-mode .button {
+	background-color: #292929;
+	border: 1px solid #212121;
+}
+.page-content.dark-mode .hero-section .cta-button {
+	color: #292929;
+	background-color: #fff;
+}
+.page-content.dark-mode .modal .info-section {
+	background-color: #292929;
+	border: 1px solid #212121;
+	box-sizing: border-box;
+}
+.modal .credits {
+	position: relative;
+	background-color: #fff;
+	width: 460px;
+	box-sizing: border-box;
+	padding: 12px 20px 0 20px;
+	font-size: 16px;
+	line-height: 155%;
+	border-radius: 5px;
+	box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+}
+.modal-credits {
+	justify-content: center !important;
+}
+.modal .credits span {
+	display: block;
+	font-size: 18px;
+	font-family: "Poppins Bold";
+	margin-bottom: 15px;
+	text-align: center;
+}
+.modal .credits #close-credits {
+	position: absolute;
+	left: 20px;
+	top: 18px;
+	transition: 200ms;
+	cursor: pointer;
+}
+.modal .credits p {
+	margin-bottom: 15px;
+}
+.modal .credits .footer {
+	font-size: 14px;
+	font-family: "Poppins Regular";
+	opacity: 0.3;
+	border-top: 1px solid rgba(0, 0, 0, 0.3);
+	padding-top: 12px;
+}
+.modal .credits a {
+	font-family: "Poppins Bold";
+	display: inline-block;
+	color: currentColor;
+	text-decoration: none;
+	border-bottom: 1px solid currentColor;
+}
+.page-content.dark-mode .modal .info-section span:first-of-type {
+	color: #e1e1e1;
+}
+.page-content.dark-mode .modal .info-section p {
+	color: #e1e1e1;
+}
+.page-content.dark-mode .modal .landmarks-section .landmark-card {
+	border: 1px solid #212121;
+	box-sizing: border-box;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info {
+	border: 1px solid #212121;
+	box-sizing: border-box;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .info {
+	background-color: #292929;
+}
+.page-content.dark-mode
+	.landmark-info-wrapper
+	.landmark-info
+	.info
+	span:first-of-type {
+	color: #e1e1e1;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .info p {
+	color: #e1e1e1;
+}
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .drag {
+	background-color: #323232;
+}
+.drag.ready {
+	cursor: grab;
+}
+
+#map.dark-mode .marker {
+	border-color: #fff;
+}
+#map.dark-mode .marker:hover {
+	background-color: #fff;
+}
+#map.dark-mode .marker:hover .city-name {
+	opacity: 1;
+	transform: translateY(-30px) scale(1);
+	color: #fff;
+}
+#map.dark-mode .marker-shrink {
+	border: 6px solid rgba(255, 255, 255, 0.15) !important;
+}
+:root {
+	font-size: 16px;
+}
+
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+}
+
+.active {
+	z-index: 1 !important;
+}
+.marker {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 25px;
+	width: 25px;
+	box-sizing: border-box;
+	border: 6px solid #000;
+	border-radius: 100px;
+	cursor: pointer;
+	opacity: 0;
+	transition: background-color 200ms, opacity 1s 800ms,
+		border 500ms ease-in-out;
+}
+.marker:hover {
+	background-color: #000;
+}
+.marker:hover .city-name {
+	opacity: 1;
+	transform: translateY(-30px) scale(1);
+}
+.marker .city-name {
+	font-family: Poppins Bold;
+	font-size: 1.25rem;
+	text-transform: capitalize;
+	opacity: 0;
+	transition: 500ms;
+	transition-delay: 200ms;
+	transform: scale(0.5);
+	white-space: nowrap;
+}
+
+.marker-shrink {
+	border: 6px solid rgba(0, 0, 0, 0.15) !important;
+	transition-delay: 0s !important;
+}
+
+.mapboxgl-popup-tip {
+	display: none;
+}
+
+.mapboxgl-popup-content {
+	background-color: transparent;
+	box-shadow: none;
+	font-size: 1.5rem;
+	font-family: Poppins Bold;
+	text-transform: capitalize;
+	padding: 0;
+}
+.mapboxgl-popup-content .mapboxgl-popup-close-button {
+	display: none;
+}
+
+#map {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	pointer-events: none;
+}
+
+.page-content {
+	height: 100%;
+	max-width: 1425px;
+	font-family: Poppins Regular;
+	margin: 0 auto;
+	position: relative;
+}
+.page-content .hero-section {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: Poppins Bold;
+	position: absolute;
+}
+.page-content .hero-section img#logo {
+	position: absolute;
+	top: 30px;
+	transition: 1s;
+}
+.page-content .hero-section h1 {
+	font-size: 4rem;
+	letter-spacing: -0.045em;
+	line-height: 70px;
+	text-align: center;
+	width: 90%;
+	margin-top: 150px;
+}
+.page-content .hero-section .cta-button {
+	font-size: 1.5rem;
+	padding: 15px 35px;
+	color: #fff;
+	background-color: #000;
+	margin-top: 105px;
+	border-radius: 50px;
+	cursor: pointer;
+	transition: transform 800ms ease-in-out;
+}
+.page-content .hero-section .cta-button:hover {
+	transform: scale(1.1);
+}
+.page-content .modal {
+	top: 0;
+	right: 0;
+	left: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transform: scale(0.8);
+	opacity: 0;
+	z-index: -1;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.page-content .modal .info-section {
+	position: relative;
+	height: 800px;
+	width: 1065px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-sizing: border-box;
+	padding: 50px 100px;
+	box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+	overflow: auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.page-content .modal .info-section::-webkit-scrollbar {
+	display: none;
+}
+.page-content .modal .info-section img.back {
+	top: 60px;
+	left: 42px;
+	position: absolute;
+	cursor: pointer;
+	transition: 200ms;
+}
+.page-content .modal .info-section img.back:hover {
+	transform: scale(1.5);
+}
+.page-content .modal .info-section span:first-of-type {
+	font-family: Poppins Bold;
+	font-size: 2.25rem;
+	letter-spacing: -0.045em;
+}
+.page-content .modal .info-section p {
+	font-size: 1.125rem;
+	line-height: 162%;
+	margin-top: 30px;
+	opacity: 0.8;
+}
+.page-content .modal .landmarks-section {
+	height: 100%;
+	width: 345px;
+	overflow: auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.page-content .modal .landmarks-section::-webkit-scrollbar {
+	display: none;
+}
+.page-content .modal .landmarks-section .landmark-card {
+	position: relative;
+	height: 400px;
+	width: 100%;
+	margin-bottom: 20px;
+	background-color: #fff;
+	background-position: center;
+	background-size: cover;
+	border-radius: 5px;
+	box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+	cursor: pointer;
+	opacity: 0;
+	transition: 500ms;
+	transition-delay: 200ms;
+	transition-property: opacity;
+}
+.page-content .modal .landmarks-section .landmark-card:hover img {
+	transform: scale(1.05);
+}
+.page-content .modal .landmarks-section .landmark-card span {
+	position: absolute;
+	z-index: 1;
+	top: 35px;
+	left: 40px;
+	display: block;
+	width: 225px;
+	font-family: Poppins Bold;
+	font-size: 2.25rem;
+	letter-spacing: -0.045em;
+	line-height: 35px;
+	color: #fff;
+	text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+}
+.page-content .modal .landmarks-section .landmark-card img.card-background {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+	transition: 500ms;
+}
+.page-content .landmark-info-wrapper {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: -1;
+	display: flex;
+	align-items: center;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.page-content .landmark-info-wrapper .landmark-info {
+	/* position: absolute; */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 800px;
+	width: 100%;
+	border-radius: 5px;
+	box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+	/* overflow: hidden; */
+	transform: scale(0.8);
+	opacity: 0;
+}
+.page-content .landmark-info-wrapper .landmark-info .info,
+.page-content .landmark-info-wrapper .landmark-info .drag {
+	height: 100%;
+	width: 50%;
+	background-color: #fff;
+}
+.page-content .landmark-info-wrapper .landmark-info .info {
+	box-sizing: border-box;
+	padding: 50px 100px;
+	overflow: auto;
+	border-radius: 5px 0 0 5px;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.page-content .landmark-info-wrapper .landmark-info .info::-webkit-scrollbar {
+	display: none;
+}
+.page-content .landmark-info-wrapper .landmark-info .info span:first-of-type {
+	display: block;
+	font-family: Poppins Bold;
+	font-size: 2.25rem;
+	letter-spacing: -0.045em;
+	margin-bottom: 30px;
+}
+.page-content .landmark-info-wrapper .landmark-info .info p {
+	font-family: Poppins Regular;
+	font-size: 1.125rem;
+	line-height: 162.41%;
+	opacity: 0.8;
+	margin-bottom: 10px;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	border-radius: 0 5px 5px 0;
+	background-size: cover;
+	background-position: center;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag.preloading {
+	pointer-events: none;
+}
+.load-3d {
+	position: absolute;
+	z-index: 2;
+	bottom: 15px;
+	right: 15px;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #000;
+	font-family: "Poppins Bold";
+	font-size: 1.125rem;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: 400ms;
+}
+#load-3d-icon {
+	position: static;
+	height: 26px;
+	width: 26px;
+	object-fit: contain;
+}
+.dark-mode .load-3d {
+	background-color: #292929;
+	border: 1px solid #212121;
+	color: #fff;
+}
+.dark-mode .load-3d.loading {
+	border: none;
+}
+.load-3d.loading span {
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	bottom: 15px;
+	color: #fff;
+}
+.load-3d.loading {
+	bottom: 15px;
+	right: unset;
+	background-color: rgba(255, 255, 255, 0.25);
+	width: 95%;
+	pointer-events: none;
+	height: 10px;
+	border-radius: 3px;
+}
+.load-3d .progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 0;
+	background-color: #fff;
+	transition: 100ms;
+	border-radius: 3px;
+}
+.load-3d:hover {
+	transform: scale(1.025);
+}
+.page-content .landmark-info-wrapper .landmark-info .drag img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	z-index: 1;
+	border-radius: 0 5px 5px 0;
+	pointer-events: none;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag .frame {
+	display: none;
+	pointer-events: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.page-content .landmark-info-wrapper .landmark-info .drag .threesixty {
+	z-index: 1;
+}
+.page-content .landmark-info-wrapper .landmark-info img.close-landmark {
+	top: 60px;
+	left: 42px;
+	position: absolute;
+	cursor: pointer;
+	transition: 200ms;
+}
+.page-content .landmark-info-wrapper .landmark-info img.close-landmark:hover,
+#close-credits:hover {
+	transform: scale(1.5);
+}
+.page-content .modal::-webkit-scrollbar,
+.page-content .landmark-info-wrapper::-webkit-scrollbar {
+	display: none;
+}
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+	transition: 1s;
+	transform: none;
+}
+.mapboxgl-ctrl-bottom-left.hidden,
+.mapboxgl-ctrl-bottom-right.hidden {
+	transform: translateY(50px);
+}
+.mapbox-improve-map {
+	display: none;
+}
+@media (max-width: 1500px) {
+	:root {
+		font-size: 15px;
+	}
+	.page-content {
+		width: 100%;
+		margin: 0;
+		max-width: none;
+	}
+	.page-content .modal .info-section {
+		width: 100%;
+		margin-right: 20px;
+	}
+	.page-content .modal .landmarks-section {
+		flex-shrink: 0;
+	}
+	.page-content .modal {
+		box-sizing: border-box;
+		padding: 0 20px;
+	}
+	.page-content .landmark-info-wrapper {
+		box-sizing: border-box;
+		padding: 0 20px;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .info {
+		padding: 50px;
+	}
+	.page-content .landmark-info-wrapper .landmark-info img.close-landmark {
+		top: 58px;
+		left: 20px;
+	}
+}
+@media (max-width: 1100px) {
+	.page-content .hero-section h1 {
+		font-size: 3.5rem;
+	}
+	.page-content .modal .landmarks-section {
+		width: 265px;
+	}
+	.page-content .modal .landmarks-section .landmark-card {
+		height: 310px;
+	}
+	.page-content .modal .landmarks-section .landmark-card span {
+		top: 20px;
+		left: 20px;
+		font-size: 2rem;
+	}
+	.page-content .modal .info-section {
+		padding: 50px 50px 50px 100px;
+	}
+	.page-content
+		.landmark-info-wrapper
+		.landmark-info
+		.info
+		span:first-of-type {
+		font-size: 2rem;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .info p {
+		font-size: 1rem;
+	}
+}
+@media (max-width: 800px) {
+	.city-name {
+		display: none;
+	}
+	.page-content .modal {
+		display: block;
+		overflow: auto;
+		padding: 0 20px;
+	}
+	.modal-credits {
+		display: flex !important;
+	}
+	.page-content .modal .info-section {
+		height: auto !important;
+		margin: 20px 0;
+		padding: 25px 50px;
+	}
+	.page-content .modal .landmarks-section {
+		height: auto;
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+		overflow: visible;
+		margin-bottom: 20px;
+	}
+	.page-content .modal .landmarks-section .landmark-card {
+		margin: 0 !important;
+	}
+	.page-content .modal .info-section img.back {
+		top: 34px;
+		left: 20px;
+	}
+	.page-content .modal .landmarks-section .landmark-card span {
+		display: block;
+		font-size: 1.5rem;
+		width: auto;
+		line-height: 100%;
+		top: 20px;
+		left: 0;
+		right: 0;
+		text-align: center;
+		margin: 0 auto;
+		width: 90%;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		padding-bottom: 10px;
+	}
+	.page-content .landmark-info-wrapper {
+		padding: 0 20px;
+		display: block;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.page-content .landmark-info-wrapper .landmark-info {
+		display: block;
+		height: auto;
+		margin: 20px 0;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .info,
+	.page-content .landmark-info-wrapper .landmark-info .drag {
+		width: unset;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .info {
+		border-radius: 5px 5px 0 0;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .drag {
+		height: 800px;
+		border-radius: 0 0 5px 5px;
+		overflow: hidden;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .drag img {
+		border-radius: unset;
+	}
+}
+@media (max-width: 615px) {
+	#logo {
+		height: 20px;
+	}
+	.buttons-wrapper {
+		flex-direction: column-reverse;
+	}
+	.buttons-wrapper #toggle-theme {
+		margin: 0 0 10px 0;
+	}
+	.page-content .modal .landmarks-section {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.page-content .modal .info-section img.back,
+	.page-content .landmark-info-wrapper .landmark-info img.close-landmark {
+		top: 30px;
+	}
+	.page-content .modal .info-section span:first-of-type,
+	.page-content
+		.landmark-info-wrapper
+		.landmark-info
+		.info
+		span:first-of-type {
+		display: block;
+		text-align: center;
+	}
+	.page-content .modal .info-section p,
+	.page-content .landmark-info-wrapper .landmark-info .info p {
+		text-align: justify;
+	}
+	.page-content .modal .info-section,
+	.page-content .landmark-info-wrapper .landmark-info .info {
+		padding: 20px;
+	}
+}
+@media (max-width: 500px) {
+	.page-content .hero-section h1 {
+		font-size: 3rem;
+		line-height: 125%;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .drag {
+		height: 500px;
+	}
+}
+@media (max-width: 425px) {
+	.page-content .hero-section h1 {
+		font-size: 2.5rem;
+	}
+	.page-content .modal {
+		padding: 0 10px;
+	}
+	.page-content .modal .info-section {
+		margin: 10px 0;
+	}
+	.page-content .modal .landmarks-section {
+		gap: 10px;
+		margin-bottom: 10px;
+	}
+	.page-content .modal .landmarks-section .landmark-card {
+		height: 250px;
+	}
+	.page-content .landmark-info-wrapper {
+		padding: 0 10px;
+	}
+	.page-content .landmark-info-wrapper .landmark-info {
+		margin: 10px 0;
+	}
+	.page-content .modal .info-section p {
+		font-size: 1rem;
+	}
+	.page-content .landmark-info-wrapper .landmark-info .drag {
+		height: 400px;
+	}
+	.page-content .modal .info-section span:first-of-type,
+	.page-content
+		.landmark-info-wrapper
+		.landmark-info
+		.info
+		span:first-of-type {
+		font-size: 2rem;
+		width: 80%;
+		margin: 0 auto;
+	}
+	.page-content
+		.landmark-info-wrapper
+		.landmark-info
+		.info
+		span:first-of-type {
+		margin-bottom: 20px;
+		font-size: 1.5rem;
+	}
+	.page-content .landmark-info-wrapper .landmark-info img.close-landmark {
+		top: 24px;
+	}
+	.load-3d.loading {
+		bottom: 10px;
+	}
+	.modal-credits .credits span {
+		font-size: 16px;
+	}
+	.modal-credits .credits p {
+		font-size: 14px;
+	}
+}
+@media (max-width: 320px) {
+	.page-content .modal .landmarks-section {
+		grid-template-columns: 1fr;
+	}
+}
+@media (max-height: 850px) {
+	.page-content .modal .info-section {
+		height: 600px;
+	}
+}
