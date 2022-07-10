@@ -15,6 +15,5 @@ After a year of being out in the wild, Discovero - Redefined returns with almost
 -   Mapbox
 -   Wikipedia
 -   Cloudinary
--   PreloadJS
 -   Google Earth
 -   Google Earth Studio

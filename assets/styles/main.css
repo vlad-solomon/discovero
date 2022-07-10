@@ -203,6 +203,7 @@ table {
 	cursor: pointer;
 	transition: transform 200ms;
 }
+
 .buttons-wrapper .button:hover {
 	transform: scale(1.25);
 }
@@ -227,6 +228,9 @@ table {
 	background-color: #292929;
 	border: 1px solid #212121;
 }
+.buttons-wrapper.dark-mode img {
+	filter: invert(100%);
+}
 .page-content.dark-mode .hero-section .cta-button {
 	color: #292929;
 	background-color: #fff;
@@ -235,6 +239,12 @@ table {
 	background-color: #292929;
 	border: 1px solid #212121;
 	box-sizing: border-box;
+}
+.page-content.dark-mode .modal .landmarks-section .landmark-card {
+	background-color: #292929;
+}
+.page-content.dark-mode img:not(.landmark-card img, .drag > img) {
+	filter: invert(100%);
 }
 .modal .credits {
 	position: relative;
@@ -298,11 +308,7 @@ table {
 .page-content.dark-mode .landmark-info-wrapper .landmark-info .info {
 	background-color: #292929;
 }
-.page-content.dark-mode
-	.landmark-info-wrapper
-	.landmark-info
-	.info
-	span:first-of-type {
+.page-content.dark-mode .landmark-info-wrapper .landmark-info .info span:first-of-type {
 	color: #e1e1e1;
 }
 .page-content.dark-mode .landmark-info-wrapper .landmark-info .info p {
@@ -353,8 +359,7 @@ body {
 	border-radius: 100px;
 	cursor: pointer;
 	opacity: 0;
-	transition: background-color 200ms, opacity 1s 800ms,
-		border 500ms ease-in-out;
+	transition: background-color 200ms, opacity 1s 800ms, border 500ms ease-in-out;
 }
 .marker:hover {
 	background-color: #000;
@@ -402,6 +407,10 @@ body {
 	pointer-events: none;
 }
 
+#map.loading {
+	opacity: 0;
+}
+
 .page-content {
 	height: 100%;
 	max-width: 1425px;
@@ -422,8 +431,21 @@ body {
 .page-content .hero-section img#logo {
 	position: absolute;
 	top: 30px;
-	transition: 1s;
+	transition: 1s cubic-bezier(0.57, 0.02, 0.28, 1);
+	z-index: 1;
 }
+
+.hero-section.map-is-loading img#logo {
+	transition: none;
+	top: 50%;
+	transform: scale(2.5) translateY(-50%);
+}
+
+.hero-section.map-is-loading *:not(img#logo) {
+	opacity: 0;
+	pointer-events: none;
+}
+
 .page-content .hero-section h1 {
 	font-size: 4rem;
 	letter-spacing: -0.045em;
@@ -460,6 +482,7 @@ body {
 	z-index: -1;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+	/* pointer-events: none; */
 }
 .page-content .modal .info-section {
 	position: relative;
@@ -520,7 +543,7 @@ body {
 	box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
 	overflow: hidden;
 	cursor: pointer;
-	opacity: 0;
+	/* opacity: 0; */
 	transition: 500ms;
 	transition-delay: 200ms;
 	transition-property: opacity;
@@ -776,11 +799,7 @@ body {
 	.page-content .modal .info-section {
 		padding: 50px 50px 50px 100px;
 	}
-	.page-content
-		.landmark-info-wrapper
-		.landmark-info
-		.info
-		span:first-of-type {
+	.page-content .landmark-info-wrapper .landmark-info .info span:first-of-type {
 		font-size: 2rem;
 	}
 	.page-content .landmark-info-wrapper .landmark-info .info p {
@@ -880,11 +899,7 @@ body {
 		top: 30px;
 	}
 	.page-content .modal .info-section span:first-of-type,
-	.page-content
-		.landmark-info-wrapper
-		.landmark-info
-		.info
-		span:first-of-type {
+	.page-content .landmark-info-wrapper .landmark-info .info span:first-of-type {
 		display: block;
 		text-align: center;
 	}
@@ -936,20 +951,12 @@ body {
 		height: 400px;
 	}
 	.page-content .modal .info-section span:first-of-type,
-	.page-content
-		.landmark-info-wrapper
-		.landmark-info
-		.info
-		span:first-of-type {
+	.page-content .landmark-info-wrapper .landmark-info .info span:first-of-type {
 		font-size: 2rem;
 		width: 80%;
 		margin: 0 auto;
 	}
-	.page-content
-		.landmark-info-wrapper
-		.landmark-info
-		.info
-		span:first-of-type {
+	.page-content .landmark-info-wrapper .landmark-info .info span:first-of-type {
 		margin-bottom: 20px;
 		font-size: 1.5rem;
 	}
@@ -978,4 +985,58 @@ body {
 	.landmark-info {
 		height: 90% !important;
 	}
+}
+
+.skeleton {
+	pointer-events: none;
+}
+
+.skeleton span {
+	height: 40px;
+	width: 45%;
+	background-color: rgba(0, 0, 0, 0.08);
+	display: block;
+	border-radius: 5px;
+	background-size: 1000px 100%;
+	background-position: -1000px 0;
+	background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+	animation: load 5s forwards infinite linear;
+}
+
+.page-content.dark-mode .skeleton span {
+	background-image: linear-gradient(to right, #4b4b4b 0%, #535353 20%, #4b4b4b 40%, #4b4b4b 100%);
+}
+
+@keyframes load {
+	0% {
+		background-position: -1000px 0;
+	}
+
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+.skeleton p span {
+	height: 30px;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.08);
+	margin-bottom: 8px;
+}
+
+.skeleton p span:last-of-type {
+	width: 65%;
+}
+
+.skeleton .landmark-card span {
+	width: 100%;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #fff;
 }

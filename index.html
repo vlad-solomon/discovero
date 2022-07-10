@@ -2,106 +2,46 @@
 <html lang="en">
 	<head>
 		<title>Discovero</title>
-		<meta
-			name="title"
-			content="Discovero - Romania's beautiful cities are waiting to be discovered!"
-		/>
-		<meta
-			name="description"
-			content="Start exploring the most famous cities of Romania in a way never seen before."
-		/>
+		<meta name="title" content="Discovero - Romania's beautiful cities are waiting to be discovered!" />
+		<meta name="description" content="Start exploring the most famous cities of Romania in a way never seen before." />
 		<meta property="og:type" content="website" />
-		<meta
-			property="og:url"
-			content="https://vlad-solomon.github.io/discovero/"
-		/>
-		<meta
-			property="og:title"
-			content="Discovero - Romania's beautiful cities are waiting to be discovered!"
-		/>
-		<meta
-			property="og:description"
-			content="Start exploring the most famous cities of Romania in a way never seen before."
-		/>
-		<meta
-			property="og:image"
-			content="https://res.cloudinary.com/dbkhowucg/image/upload/v1617558338/discovero/cover.png"
-		/>
+		<meta property="og:url" content="https://vlad-solomon.github.io/discovero/" />
+		<meta property="og:title" content="Discovero - Romania's beautiful cities are waiting to be discovered!" />
+		<meta property="og:description" content="Start exploring the most famous cities of Romania in a way never seen before." />
+		<meta property="og:image" content="https://res.cloudinary.com/dbkhowucg/image/upload/v1617558338/discovero/cover.png" />
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta
-			property="twitter:url"
-			content="https://vlad-solomon.github.io/discovero/"
-		/>
-		<meta
-			property="twitter:title"
-			content="Discovero - Romania's beautiful cities are waiting to be discovered!"
-		/>
-		<meta
-			property="twitter:description"
-			content="Start exploring the most famous cities of Romania in a way never seen before."
-		/>
-		<meta
-			property="twitter:image"
-			content="https://res.cloudinary.com/dbkhowucg/image/upload/v1617558338/discovero/cover.png"
-		/>
+		<meta property="twitter:url" content="https://vlad-solomon.github.io/discovero/" />
+		<meta property="twitter:title" content="Discovero - Romania's beautiful cities are waiting to be discovered!" />
+		<meta property="twitter:description" content="Start exploring the most famous cities of Romania in a way never seen before." />
+		<meta property="twitter:image" content="https://res.cloudinary.com/dbkhowucg/image/upload/v1617558338/discovero/cover.png" />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="msapplication-TileColor" content="#2b5797" />
-		<meta
-			name="msapplication-config"
-			content="assets/img/favicon/browserconfig.xml"
-		/>
+		<meta name="msapplication-config" content="assets/img/favicon/browserconfig.xml" />
 		<meta name="theme-color" content="#ffffff" />
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="assets/img/favicon/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="assets/img/favicon/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="assets/img/favicon/favicon-16x16.png"
-		/>
+		<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png" />
 		<link rel="manifest" href="assets/img/favicon/site.webmanifest" />
-		<link
-			rel="mask-icon"
-			href="assets/img/favicon/safari-pinned-tab.svg"
-			color="#000000"
-		/>
+		<link rel="mask-icon" href="assets/img/favicon/safari-pinned-tab.svg" color="#000000" />
 		<link rel="shortcut icon" href="assets/img/favicon/favicon.ico" />
-		<link
-			rel="stylesheet"
-			href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css"
-		/>
 		<link rel="stylesheet" href="assets/styles/main.css" />
+		<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" />
 	</head>
 	<body>
 		<div class="buttons-wrapper">
 			<div class="button" id="toggle-credits">
-				<img src="assets/img/credits light-theme.svg" alt="credits" />
+				<img src="assets/img/info.svg" alt="credits" />
 			</div>
 			<div class="button" id="toggle-theme">
-				<img
-					src="assets/img/toggle light-theme.svg"
-					alt="toggle-theme"
-				/>
+				<img src="assets/img/toggle.svg" alt="toggle-theme" />
 			</div>
 		</div>
-		<div id="map"></div>
+		<div id="map" class="loading"></div>
 		<div class="page-content">
-			<div class="hero-section">
-				<img
-					src="assets/img/logo light-theme.svg"
-					alt="logo"
-					id="logo"
-				/>
+			<div class="hero-section map-is-loading">
+				<img src="assets/img/logo.svg" alt="logo" id="logo" />
+				<div class="overlay"></div>
 				<h1>Romania's beautiful cities are waiting to be discovered</h1>
 				<div class="cta-button">Start now</div>
 			</div>
@@ -113,12 +53,34 @@
 			integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
 			crossorigin="anonymous"
 		></script>
+		<script>
+			const API = "https://discovero-api.herokuapp.com";
+		</script>
+		<script defer>
+			Image.prototype.load = function (url) {
+				var thisImg = this;
+				var xmlHTTP = new XMLHttpRequest();
+				xmlHTTP.open("GET", url, true);
+				xmlHTTP.responseType = "arraybuffer";
+				xmlHTTP.onload = function (e) {
+					var blob = new Blob([this.response]);
+					thisImg.src = window.URL.createObjectURL(blob);
+				};
+				xmlHTTP.onprogress = function (e) {
+					thisImg.completedPercentage = parseInt((e.loaded / e.total) * 100);
+				};
+				xmlHTTP.onloadstart = function () {
+					thisImg.completedPercentage = 0;
+				};
+				xmlHTTP.send();
+			};
 
+			Image.prototype.completedPercentage = 0;
+		</script>
 		<script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/PreloadJS/1.0.1/preloadjs.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.3/cloudinary-core-shrinkwrap.js"></script>
-
-		<script src="assets/js/map-options.js"></script>
+		<script src="assets/js/map.js"></script>
 		<script src="assets/js/app.js"></script>
+		<script src="assets/js/drag.js" defer></script>
 	</body>
 </html>
