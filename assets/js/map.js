@@ -49,9 +49,8 @@ async function fetchMarkers() {
 	});
 }
 
-fetchMarkers();
-
 map.on("load", function () {
+	fetchMarkers();
 	$(".hero-section").removeClass("map-is-loading");
 	$("#map").removeClass("loading");
 	setTimeout(() => {
