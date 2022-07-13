@@ -35,27 +35,37 @@ mapResize();
 
 $(window).resize(mapResize);
 
-async function fetchMarkers() {
-	const response = await fetch(`${API}/geo`);
-	const cities = await response.json();
-
-	cities.features.forEach((city) => {
-		let marker = document.createElement("div");
-		marker.innerHTML = String.raw`
-		<div class="marker" id="${city.properties.title}">
-			<p class="city-name">${city.properties.title}</p>
-		</div>`;
-		new mapboxgl.Marker(marker).setLngLat(city.geometry.coordinates).addTo(map);
-	});
-}
-
-map.on("load", function () {
-	fetchMarkers();
+function showMap() {
 	$(".hero-section").removeClass("map-is-loading");
+	$(".overlay #spinner").fadeOut(200);
 	$("#map").removeClass("loading");
 	setTimeout(() => {
 		$(".overlay").fadeOut(500, function () {
 			$(this).remove();
 		});
 	}, 1000);
-});
+}
+
+async function fetchMarkers() {
+	fetch(`${API}/geo`)
+		.then((response) => response.json())
+		.then((cities) => {
+			cities.features.forEach((city) => {
+				let marker = document.createElement("div");
+				marker.innerHTML = String.raw`
+					<div class="marker" id="${city.properties.title}">
+						<p class="city-name">${city.properties.title}</p>
+					</div>`;
+				new mapboxgl.Marker(marker).setLngLat(city.geometry.coordinates).addTo(map);
+			});
+		})
+		.then(() => {
+			if (map.loaded()) {
+				showMap();
+			} else {
+				map.on("load", showMap);
+			}
+		});
+}
+
+fetchMarkers();

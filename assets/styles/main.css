@@ -441,7 +441,7 @@ body {
 	transform: scale(2.5) translateY(-50%);
 }
 
-.hero-section.map-is-loading *:not(img#logo) {
+.hero-section.map-is-loading *:not(img#logo, .overlay, .overlay *) {
 	opacity: 0;
 	pointer-events: none;
 }
@@ -1033,10 +1033,30 @@ body {
 }
 
 .overlay {
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
 	position: fixed;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
 	background-color: #fff;
+	padding-bottom: 25px;
+}
+
+#spinner {
+	height: 20px;
+	margin-right: 15px;
+	animation: 1s load infinite linear;
+}
+
+@keyframes load {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(-360deg);
+	}
 }
