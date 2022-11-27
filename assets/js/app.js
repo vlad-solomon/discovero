@@ -188,14 +188,6 @@ d.on("click", ".load-3d", function () {
 	loadLandmark(selectedLandmark);
 });
 
-let theme = "light";
-
-d.on("click", "#toggle-theme", function () {
-	theme = theme === "light" ? "dark" : "light";
-	map.setStyle(mapThemes[theme]);
-	$(".page-content, #map, .buttons-wrapper").toggleClass("dark-mode");
-});
-
 const creditsModal = String.raw`
 	<div class="modal modal-credits">
 		<div class="credits">

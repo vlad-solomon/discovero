@@ -1,9 +1,10 @@
+import { d } from "./helpers.js";
 import { DATA } from "./fetch.js";
 const { geo } = DATA;
 
 mapboxgl.accessToken = "pk.eyJ1IjoidmxhZHNvbG9tb24iLCJhIjoiY2s2bmRtcHlyMDlrcjNrcXB2ZW9naXEzbSJ9.DxhYkg_YSDRXynMaZg4VWw";
 
-const mapThemes = {
+export const mapThemes = {
 	light: "mapbox://styles/vladsolomon/ck6gcymgl32dp1imzprm4cua0",
 	dark: "mapbox://styles/vladsolomon/ck6tf98787m551imw9zcwn8h9",
 };
@@ -18,6 +19,14 @@ const mapOptions = {
 		[34.1, 49.33],
 	],
 };
+
+let theme = "light";
+
+d.on("click", "#toggle-theme", function () {
+	theme = theme === "light" ? "dark" : "light";
+	map.setStyle(mapThemes[theme]);
+	$(".page-content, #map, .buttons-wrapper").toggleClass("dark-mode");
+});
 
 const map = new mapboxgl.Map(mapOptions);
 
