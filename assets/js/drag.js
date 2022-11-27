@@ -1,4 +1,6 @@
-let lastX;
+import { d, db } from "./helpers.js";
+
+let lastX = 0;
 let currentFrame = 0;
 let minFrame, maxFrame;
 
@@ -52,4 +54,42 @@ function cleanDragHandlers() {
 	d.off("mousemove", ".drag.ready");
 	document.getSelection().removeAllRanges();
 	$(".drag.ready").css("cursor", "grab");
+}
+
+export function loadLandmark(landmark) {
+	lastX = 0;
+	currentFrame = 0;
+	let frames = [];
+	for (let i = 0; i <= 60; i++) {
+		let frame = new Image();
+		frame.setAttribute("alt", `${landmark}-${i}`);
+		frame.classList.add("frame");
+		let url = `${db}/${landmark}/${landmark}${i}.jpg`;
+
+		frame.load(url);
+		frames.push({ frame });
+		$(".drag").append(frame);
+	}
+	let progressInterval = setInterval(() => {
+		let array = [];
+		for (let k = 0; k < frames.length; k++) {
+			array.push(frames[k].frame.completedPercentage);
+		}
+		let sum = array.reduce((partialSum, a) => partialSum + a, 0);
+		let progress = Math.round(sum / array.length) + "%";
+
+		$(".load-3d span").text(progress);
+		$(".load-3d .progress").width(progress);
+
+		if (progress === "100%") {
+			clearInterval(progressInterval);
+			$(".load-3d")
+				.css("transition", "none")
+				.fadeOut(400, function () {
+					$(this).remove();
+				});
+			$(".drag .frame").first().fadeIn(400);
+			$(".drag").removeClass("preloading").addClass("ready");
+		}
+	}, 500);
 }

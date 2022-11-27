@@ -1,3 +1,6 @@
+import { DATA } from "./fetch.js";
+const { geo } = DATA;
+
 mapboxgl.accessToken = "pk.eyJ1IjoidmxhZHNvbG9tb24iLCJhIjoiY2s2bmRtcHlyMDlrcjNrcXB2ZW9naXEzbSJ9.DxhYkg_YSDRXynMaZg4VWw";
 
 const mapThemes = {
@@ -16,7 +19,7 @@ const mapOptions = {
 	],
 };
 
-let map = new mapboxgl.Map(mapOptions);
+const map = new mapboxgl.Map(mapOptions);
 
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
@@ -46,26 +49,16 @@ function showMap() {
 	}, 1000);
 }
 
-async function fetchMarkers() {
-	fetch(`${API}/geo`)
-		.then((response) => response.json())
-		.then((cities) => {
-			cities.features.forEach((city) => {
-				let marker = document.createElement("div");
-				marker.innerHTML = String.raw`
-					<div class="marker" id="${city.properties.title}">
-						<p class="city-name">${city.properties.title}</p>
-					</div>`;
-				new mapboxgl.Marker(marker).setLngLat(city.geometry.coordinates).addTo(map);
-			});
-		})
-		.then(() => {
-			if (map.loaded()) {
-				showMap();
-			} else {
-				map.on("load", showMap);
-			}
-		});
+function showMarkers() {
+	geo.features.forEach((city) => {
+		const marker = document.createElement("div");
+		marker.innerHTML = String.raw`
+			<div class="marker" id="${city.properties.title}">
+				<p class="city-name">${city.properties.title}</p>
+			</div>`;
+		new mapboxgl.Marker(marker).setLngLat(city.geometry.coordinates).addTo(map);
+	});
+	map.on("load", showMap);
 }
 
-fetchMarkers();
+showMarkers();

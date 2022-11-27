@@ -1,7 +1,8 @@
-const d = $(document);
-const cl = cloudinary.Cloudinary.new({
-	cloud_name: "dbkhowucg",
-});
+import { d, db, cl } from "./helpers.js";
+import { DATA } from "./fetch.js";
+import { loadLandmark } from "./drag.js";
+
+const { cities } = DATA;
 
 $(".cta-button").click(function () {
 	$(".buttons-wrapper").css("transform", "none");
@@ -34,18 +35,45 @@ function computeMargin() {
 
 $(window).resize(computeMargin);
 
-async function fetchCity(city) {
-	const response = await fetch(`${API}/cities?name=${city}`);
-	const info = await response.json();
-	return info[0];
-}
-
-const db = "https://res.cloudinary.com/dbkhowucg/image/upload";
-let selectedCity;
 let cityInfo;
 
+function showCity(selectedCity) {
+	cityInfo = cities.find((city) => city.name === selectedCity);
+	const { name: title, info, landmarks } = cityInfo;
+
+	landmarks.map((landmark) => {
+		return (landmark.url = landmark.name.toLowerCase().replace(/\s/g, "_"));
+	});
+
+	const cityModal = String.raw`
+		<div class="info-section">
+			<img class="back" src="assets/img/back.svg" alt="back">
+			<span>${title}</span>
+			${info
+				.map((paragraph) => {
+					return String.raw`<p>${paragraph}</p>`;
+				})
+				.join("")}
+		</div>
+		<div class="landmarks-section">
+			${landmarks
+				.map((landmark) => {
+					return String.raw`
+						<div class="landmark-card" data-landmark="${landmark.name}" style="background-image:url(${db}/e_blur:1000,c_fill,h_400,w_auto/${landmark.url}/${landmark.url}0.jpg);">
+							<span>${landmark.name}</span>
+							<img class="card-background cld-responsive" data-src="${db}/c_fill,h_400,w_auto/${landmark.url}/${landmark.url}0.jpg" alt="${landmark.name}">
+						</div>`;
+				})
+				.join("")}
+		</div>`;
+
+	$(".modal").removeClass("skeleton").html(cityModal);
+	computeMargin();
+	cl.responsive();
+}
+
 d.on("click", ".marker", function () {
-	selectedCity = $(this).attr("id");
+	const selectedCity = $(this).attr("id");
 
 	$(".mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right").addClass("hidden");
 	$(".buttons-wrapper").removeAttr("style").css("pointer-events", "none");
@@ -76,49 +104,13 @@ d.on("click", ".marker", function () {
 	computeMargin();
 	$(".modal").addClass("fly-in-appear active");
 
-	fetchCity(selectedCity)
-		.then((fetchedInfo) => {
-			cityInfo = fetchedInfo;
-			({ name: title, info, landmarks } = cityInfo);
-
-			landmarks.map((landmark) => {
-				return (landmark.url = landmark.name.toLowerCase().replace(/\s/g, "_"));
-			});
-
-			let cityModal = String.raw`
-					<div class="info-section">
-						<img class="back" src="assets/img/back.svg" alt="back">
-						<span>${title}</span>
-						${info
-							.map((paragraph) => {
-								return String.raw`<p>${paragraph}</p>`;
-							})
-							.join("")}
-					</div>
-					<div class="landmarks-section">
-						${landmarks
-							.map((landmark) => {
-								return String.raw`
-									<div class="landmark-card" data-landmark="${landmark.name}" style="background-image:url(${db}/e_blur:1000,c_fill,h_400,w_auto/${landmark.url}/${landmark.url}0.jpg);">
-										<span>${landmark.name}</span>
-										<img class="card-background cld-responsive" data-src="${db}/c_fill,h_400,w_auto/${landmark.url}/${landmark.url}0.jpg" alt="${landmark.name}">
-									</div>`;
-							})
-							.join("")}
-					</div>`;
-
-			$(".modal").removeClass("skeleton").html(cityModal);
-		})
-		.then(() => {
-			computeMargin();
-			cl.responsive();
-		});
+	showCity(selectedCity);
 });
 
 d.on("click", ".landmark-card", function () {
-	let selectedLandmark = $(this).data("landmark");
-	let landmarkInfo = cityInfo.landmarks.filter((landmark) => landmark.name === selectedLandmark)[0];
-	({ info, name: title, url } = landmarkInfo);
+	const selectedLandmark = $(this).data("landmark");
+	const landmarkInfo = cityInfo.landmarks.find((landmark) => landmark.name === selectedLandmark);
+	const { info, name: title, url } = landmarkInfo;
 
 	let landmarkModal = String.raw`
 		<div class="landmark-info">
@@ -195,44 +187,6 @@ d.on("click", ".load-3d", function () {
 
 	loadLandmark(selectedLandmark);
 });
-
-function loadLandmark(landmark) {
-	lastX = 0;
-	currentFrame = 0;
-	let frames = [];
-	for (i = 0; i <= 60; i++) {
-		let frame = new Image();
-		frame.setAttribute("alt", `${landmark}-${i}`);
-		frame.classList.add("frame");
-		let url = `${db}/${landmark}/${landmark}${i}.jpg`;
-
-		frame.load(url);
-		frames.push({ frame });
-		$(".drag").append(frame);
-	}
-	let progressInterval = setInterval(() => {
-		let array = [];
-		for (k = 0; k < frames.length; k++) {
-			array.push(frames[k].frame.completedPercentage);
-		}
-		let sum = array.reduce((partialSum, a) => partialSum + a, 0);
-		let progress = Math.round(sum / 61) + "%";
-
-		$(".load-3d span").text(progress);
-		$(".load-3d .progress").width(progress);
-
-		if (progress === "100%") {
-			clearInterval(progressInterval);
-			$(".load-3d")
-				.css("transition", "none")
-				.fadeOut(400, function () {
-					$(this).remove();
-				});
-			$(".drag .frame").first().fadeIn(400);
-			$(".drag").removeClass("preloading").addClass("ready");
-		}
-	}, 500);
-}
 
 let theme = "light";
 
