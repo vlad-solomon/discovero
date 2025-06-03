@@ -8,7 +8,7 @@ After a year of being out in the wild, Discovero - Redefined returns with almost
     <img src="https://res.cloudinary.com/dbkhowucg/image/upload/v1617704327/discovero/discovero_hero.gif" style="width:100%;border-radius:5px;box-shadow: 0px 15px 25px rgb(0,0,0,0.08);" alt="Discovero Hero">
 </p>
 
-### What are you waiting for? [Start exploring!](https://vlad-solomon.github.io/discovero/)
+### What are you waiting for? [Start exploring!](https://discovero.vladsolomon.com/)
 
 ### This project was made possible by
 
